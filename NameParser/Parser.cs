@@ -14,7 +14,7 @@ namespace NameParser
             // check for Prefix
             var prefix = false;
             char last = namePieces[0][namePieces[0].Length - 1];
-            if (last == '.')
+            if ((namePieces[0].Length>2) && last == '.')
             {
                 user.Prefix = namePieces[index];
                 prefix = true;

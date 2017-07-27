@@ -29,7 +29,6 @@ namespace NameParser.Tests
                                                                 string expectedLastName)
         {
             //Arrange
-            // var name = "Steve Jones";
             var nameParser = new Parser();
 
             //Act
@@ -49,7 +48,6 @@ namespace NameParser.Tests
                                                                   string expectedMiddleInitial, string expectedLastName)
         {
             //Arrange
-            // var name = "Steve X Jones";
             var nameParser = new Parser();
 
             //Act
@@ -70,7 +68,6 @@ namespace NameParser.Tests
                                                            string expectedLastName, string expectedSuffix)
         {
             //Arrange
-            // var name = "Bob Marley Jr.";
             var nameParser = new Parser();
 
             //Act
@@ -88,10 +85,9 @@ namespace NameParser.Tests
         [InlineData("Mrs. Aunt Jemima", "Mrs.", "Aunt", "Jemima")]
         // [Fact]
         public void PrefixPlusFirstAndLastNamePopulated(string nameToTest, string expectedPrefix, 
-                                                           string expectedFirstName, string expectedLastName)
+                                                        string expectedFirstName, string expectedLastName)
         {
             //Arrange
-            // var name = "Mr. Bob Michaels";
             var nameParser = new Parser();
 
             //Act
@@ -101,6 +97,40 @@ namespace NameParser.Tests
             Assert.Equal(result.Prefix, expectedPrefix);
             Assert.Equal(result.FirstName, expectedFirstName);
             Assert.Equal(result.LastName, expectedLastName);
+        }
+
+
+        [Fact]
+        public void OnlyInitialsForFirstAndMiddleNamePopulated()
+        {
+            //Arrange
+            var name = "P J O'Rourke";
+            var nameParser = new Parser();
+
+            //Act
+            var result = nameParser.ParseName(name);
+
+            //Assert
+            Assert.Equal(result.FirstName, "P");
+            Assert.Equal(result.MiddleInitial, "J");
+            Assert.Equal(result.LastName, "O'Rourke");
+        }
+
+
+        [Fact]
+        public void OnlyInitialsWithPeriodsForFirstAndMiddleNamePopulated()
+        {
+            //Arrange
+            var name = "C. S. Lewis";
+            var nameParser = new Parser();
+
+            //Act
+            var result = nameParser.ParseName(name);
+
+            //Assert
+            Assert.Equal(result.FirstName, "C.");
+            Assert.Equal(result.MiddleInitial, "S.");
+            Assert.Equal(result.LastName, "Lewis");
         }
     }
 }
