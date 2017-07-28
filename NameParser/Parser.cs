@@ -37,10 +37,7 @@ namespace NameParser
                 if (nameHasSuffix(namePieces.Length, i+1))
                 {
                     i++;
-                    if (i <= namePieces.Length)
-                    {
-                        user.Suffix = namePieces[i];
-                    }
+                    user.Suffix = namePieces[i];
                 }
             }
         return user;
