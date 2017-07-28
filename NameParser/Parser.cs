@@ -4,27 +4,62 @@ namespace NameParser
 {
     public class Parser
     {
-        public User ParseName(string name)
+        private string[] namePieces;
+        private int i = 0; // namePieces index
+
+        public User ParseName (string name)
         {
             var user = new User();
 
-            var namePieces = name.Split(' ');
+            namePieces = name.Split(' ');
 
-            user.FirstName = namePieces[0];
-            if (namePieces.Length > 1)
+            if (nameHasPrefix(namePieces[i])) // i = 0
             {
-                if (namePieces[1].Length == 1 || namePieces[1][1] == '.')
+                user.Prefix = namePieces[i];
+                i++;
+            }
+            
+            // assume all names have First Name
+            user.FirstName = namePieces[i];
+            i++;
+
+            // Middle Initial / Last Name / Suffix
+            if (namePieces.Length > 1) // need for names that are ONLY First name e.g., Madonna
+            {
+                if (nameHasMiddleInit(namePieces[i]))
                 {
-                    user.MiddleInitial = namePieces[1];
+                    user.MiddleInitial = namePieces[i];
+                    i++;
                 }
-                else
+
+                user.LastName = namePieces[i];
+
+                if (nameHasSuffix(namePieces.Length, i+1))
                 {
-                    user.LastName = namePieces[1];
+                    i++;
+                    user.Suffix = namePieces[i];
                 }
             }
-
-            return user;
+        return user;
         }
-        
+
+    
+        public bool nameHasPrefix (string thisName)
+        {
+            char lastChar = thisName[thisName.Length - 1];
+            return ((thisName.Length>2) && lastChar == '.') ? true : false;
+        }
+
+
+        public bool nameHasMiddleInit (string thisName)
+        {
+            return ((thisName.Length == 1) || thisName[1] == '.') ? true : false;
+        }
+
+
+        public bool nameHasSuffix (int arrayLength, int i)
+        {
+            return ((i+1 == arrayLength)) ? true : false;
+           }
     }
 }
