@@ -5,42 +5,41 @@ namespace NameParser
     public class Parser
     {
         private string[] namePieces;
-        private int index = 0;
+        private int i = 0; // namePieces index
 
-        public User ParseName(string name)
+        public User ParseName (string name)
         {
             var user = new User();
 
             namePieces = name.Split(' ');
 
-            var prefix = false;
-            if (nameHasPrefix(namePieces[0]))
+            if (nameHasPrefix(namePieces[i])) // i = 0
             {
-                user.Prefix = namePieces[index];
-                prefix = true;
-                index++;
+                user.Prefix = namePieces[i];
+                i++;
             }
             
             // assume all names have First Name
-            user.FirstName = namePieces[index];
-            index++;
+            user.FirstName = namePieces[i];
+            i++;
 
             // Middle Initial / Last Name / Suffix
-            if (namePieces.Length > 1) 
+            if (namePieces.Length > 1) // need for names that are ONLY First name e.g., Madonna
             {
-                if (nameHasMiddleInit(namePieces[index]))
+                if (nameHasMiddleInit(namePieces[i]))
                 {
-                    user.MiddleInitial = namePieces[index];
-                    user.LastName = namePieces[index+1];
-                    index += 2;
+                    user.MiddleInitial = namePieces[i];
+                    i++;
                 }
-                else
+
+                user.LastName = namePieces[i];
+
+                if (nameHasSuffix(namePieces.Length, i+1))
                 {
-                    user.LastName = namePieces[index];
-                    if (nameHasSuffix(namePieces.Length, prefix))
+                    i++;
+                    if (i <= namePieces.Length)
                     {
-                        index++;
-                        user.Suffix = namePieces[index];
+                        user.Suffix = namePieces[i];
                     }
                 }
             }
@@ -61,9 +60,9 @@ namespace NameParser
         }
 
 
-        public bool nameHasSuffix (int arrayLength, bool prefix)
+        public bool nameHasSuffix (int arrayLength, int i)
         {
-            return ((arrayLength > 2 && !prefix)) ? true : false;
-        }
+            return ((i+1 == arrayLength)) ? true : false;
+           }
     }
 }

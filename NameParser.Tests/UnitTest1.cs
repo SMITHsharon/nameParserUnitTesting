@@ -132,5 +132,24 @@ namespace NameParser.Tests
             Assert.Equal(result.MiddleInitial, "S.");
             Assert.Equal(result.LastName, "Lewis");
         }
+
+
+        [Fact]
+        public void PrefixPlusFirstAndMiddleNameInitialsPlusSuffix()
+        {
+            //Arrange
+            var name = "Mr. C. S. Lewis PhD";
+            var nameParser = new Parser();
+
+            //Act
+            var result = nameParser.ParseName(name);
+
+            //Assert
+            Assert.Equal(result.Prefix, "Mr.");
+            Assert.Equal(result.FirstName, "C.");
+            Assert.Equal(result.MiddleInitial, "S.");
+            Assert.Equal(result.LastName, "Lewis");
+            Assert.Equal(result.Suffix, "PhD");
+        }
     }
 }
