@@ -4,31 +4,31 @@ namespace NameParser
 {
     public class Parser
     {
+        private string[] namePieces;
+        private int index = 0;
+
         public User ParseName(string name)
         {
             var user = new User();
 
-            var namePieces = name.Split(' ');
-            var index = 0;
+            namePieces = name.Split(' ');
 
-            // check for Prefix
             var prefix = false;
-            char last = namePieces[0][namePieces[0].Length - 1];
-            if ((namePieces[0].Length>2) && last == '.')
+            if (nameHasPrefix(namePieces[0]))
             {
                 user.Prefix = namePieces[index];
                 prefix = true;
                 index++;
             }
             
-            // First Name
+            // assume all names have First Name
             user.FirstName = namePieces[index];
             index++;
 
             // Middle Initial / Last Name / Suffix
             if (namePieces.Length > 1) 
             {
-                if (namePieces[index].Length == 1 || namePieces[index][1] == '.')
+                if (nameHasMiddleInit(namePieces[index]))
                 {
                     user.MiddleInitial = namePieces[index];
                     user.LastName = namePieces[index+1];
@@ -37,16 +37,33 @@ namespace NameParser
                 else
                 {
                     user.LastName = namePieces[index];
-                    index++;
-                    if (namePieces.Length > 2 && !prefix) 
+                    if (nameHasSuffix(namePieces.Length, prefix))
                     {
+                        index++;
                         user.Suffix = namePieces[index];
                     }
                 }
             }
-
-            return user;
+        return user;
         }
-        
+
+    
+        public bool nameHasPrefix (string thisName)
+        {
+            char lastChar = thisName[thisName.Length - 1];
+            return ((thisName.Length>2) && lastChar == '.') ? true : false;
+        }
+
+
+        public bool nameHasMiddleInit (string thisName)
+        {
+            return ((thisName.Length == 1) || thisName[1] == '.') ? true : false;
+        }
+
+
+        public bool nameHasSuffix (int arrayLength, bool prefix)
+        {
+            return ((arrayLength > 2 && !prefix)) ? true : false;
+        }
     }
 }
