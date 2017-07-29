@@ -7,7 +7,7 @@
         {
             "taskName": "build",
             "args": [
-                "${workspaceRoot}/NameParser.App/NameParser.App.csproj"
+                "${workspaceRoot}/NameParser/NameParser.csproj"
             ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"

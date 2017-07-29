@@ -4,15 +4,14 @@ namespace NameParser
 {
     public class Parser
     {
-        private string[] namePieces;
-        private int i = 0; // namePieces index
-
         public User ParseName (string name)
         {
             var user = new User();
 
+            string[] namePieces;
             namePieces = name.Split(' ');
 
+            int i = 0; // namePieces index
             if (nameHasPrefix(namePieces[i])) // i = 0
             {
                 user.Prefix = namePieces[i];
