@@ -24,7 +24,7 @@ Story:
 - Wrote Unit Tests for 12 cases, all of which passed
 - Tests are set-up as both `Fact` and `Theory`
 - Defined the Class `Parser` in `Parser.cs`, which parses all of the cases that are passed in as the string `name`
-- After the 12 cases all successfully Passed, refactored the code in `Parser.cs`
+- After the 12 cases successfully Passed, refactored the code in `Parser.cs`
 
 #### The 12 Name Cases
 - `"Zandaya"`
