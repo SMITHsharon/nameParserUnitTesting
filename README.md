@@ -47,7 +47,7 @@ Story:
 
 
 ```
-git clone https://github.com/SMITHsharon/LINQedListIntro.git
+git clone https://github.com/SMITHsharon/nameParserUnitTesting.git
 cd nameParserUnitTesting
 ```
 
