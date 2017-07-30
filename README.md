@@ -8,7 +8,7 @@ Program functionality is given via User Stories.
 
 
 ### Specs
-Given User Stories of the form:
+User Stories are given in the form:
 ```
 Story:
     As a User registering for the Stuff app
